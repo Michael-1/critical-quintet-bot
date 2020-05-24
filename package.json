@@ -1,0 +1,38 @@
+{
+  "name": "critical-quintet-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot to find four other critical individuals for a Corona-compatible bike ride",
+  "main": "scr/bot.js",
+  "scripts": {
+    "debug": "nodemon --inspect src/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michael-1/critical-quintet-bot.git"
+  },
+  "author": "Michael Schmid <michael.schmid@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Michael-1/critical-quintet-bot/issues"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^3.8.0",
+    "chrono-node": "^1.4.6",
+    "dotenv": "^8.2.0",
+    "string-similarity": "^4.0.1",
+    "telegraf": "^3.38.0",
+    "telegraf-i18n": "^6.6.0",
+    "telegraf-inline-menu": "^4.0.1"
+  },
+  "prettier": {},
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^2.0.4",
+    "dayjs": "^1.8.19"
+  }
+}

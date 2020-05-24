@@ -1,0 +1,7 @@
+*
+!.gitignore
+!.prettierrc
+!*.js
+!*.json
+!src
+!locale
