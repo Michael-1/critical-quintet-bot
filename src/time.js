@@ -22,8 +22,33 @@ timeScene.enter(async (ctx) => {
 
 timeScene.command("cancel", Stage.leave());
 
+// Custom parser that can parse dates like '29.5.' or '29.05.'
+const numParser = new chrono.Parser();
+numParser.pattern = function () {
+  return /[0-9][0-9]?\.[0-9][0-9]?\./;
+};
+numParser.extract = function (text, ref, match) {
+  const tokens = match[0].split(".");
+  const parsedDay = parseInt(tokens[0]);
+  const parsedMonth = parseInt(tokens[1]);
+  return new chrono.ParsedResult({
+    ref: ref,
+    text: match[0],
+    index: match.index,
+    start: {
+      day: parsedDay,
+      month: parsedMonth,
+    },
+  });
+};
+const custom = new chrono.Chrono(chrono.options.de.casual());
+custom.parsers.push(numParser);
+
 timeScene.on("text", async (ctx) => {
-  let parsedTimes = chrono.de.parse(ctx.message.text);
+  let parsedTimes = custom.parse(ctx.message.text);
+  if (parsedTimes.length === 0) {
+    parsedTimes = chrono.de.parse(ctx.message.text);
+  }
   if (parsedTimes.length === 0) {
     parsedTimes = chrono.parse(ctx.message.text);
   }
