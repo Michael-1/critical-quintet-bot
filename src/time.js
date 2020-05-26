@@ -4,6 +4,7 @@ const chrono = require("chrono-node");
 
 const { locationCollection } = require("./db");
 const { formatTimeOfDay, formatDateAndTime } = require("./helper");
+const storeRequest = require("./storeRequest");
 
 const MINUTES_15 = 15 * 60 * 1000;
 
@@ -11,7 +12,7 @@ const timeScene = new Scene("time");
 timeScene.enter(async (ctx) => {
   const choices = await getChoices(ctx);
   ctx.reply(
-    ctx.i18n.t("time.initial", { location: ctx.session.location }) +
+    ctx.i18n.t("time.initial", { location: ctx.scene.state.location }) +
       (choices.reply_markup.inline_keyboard
         ? " " + ctx.i18n.t("time.choose")
         : ""),
@@ -100,7 +101,7 @@ timeScene.on("text", async (ctx) => {
 
 const getChoices = async (ctx, newTime) => {
   const timeCollection = locationCollection
-    .doc(ctx.session.location)
+    .doc(ctx.scene.state.location)
     .collection("Time")
     .where("time", ">=", Date.now() + MINUTES_15);
   const snapshot = await timeCollection.get();
@@ -124,9 +125,10 @@ const getChoices = async (ctx, newTime) => {
   return Markup.inlineKeyboard(choices).extra();
 };
 
-timeScene.on("callback_query", (ctx) => {
-  ctx.session.time = parseInt(ctx.update.callback_query.data);
-  ctx.scene.enter("storeRequest");
+timeScene.on("callback_query", async (ctx) => {
+  ctx.scene.state.time = parseInt(ctx.update.callback_query.data);
+  await storeRequest(ctx);
+  ctx.scene.leave();
 });
 
 const timeButton = (ctx, time) => [

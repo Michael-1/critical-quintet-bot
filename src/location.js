@@ -87,8 +87,9 @@ locationScene.on("callback_query", (ctx) =>
 );
 
 const concludeLocationSelection = (ctx, location) => {
-  ctx.session.location = location;
-  ctx.scene.enter("time");
+  ctx.scene.state.location = location;
+  ctx.scene.enter("time", ctx.scene.state);
+  ctx.scene.leave();
 };
 
 const locationButton = (label) => [Markup.callbackButton(label, label)];

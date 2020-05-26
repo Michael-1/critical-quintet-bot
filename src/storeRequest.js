@@ -1,19 +1,15 @@
-const Scene = require("telegraf/scenes/base");
-
 const { Firestore, locationCollection, requestCollection } = require("./db");
 const { formatTimeOfDay, formatDate } = require("./helper");
 const match = require("./match");
 
-const storeRequestScene = new Scene("storeRequest");
-
 const HOURS_2 = 1000 * 60 * 60 * 2;
 
-storeRequestScene.enter(async (ctx) => {
+module.exports = async (ctx) => {
   const request = {
-    location: ctx.session.location,
-    rawTime: ctx.session.time,
-    time: formatTimeOfDay(ctx, ctx.session.time),
-    date: formatDate(ctx, ctx.session.time),
+    location: ctx.scene.state.location,
+    rawTime: ctx.scene.state.time,
+    time: formatTimeOfDay(ctx, ctx.scene.state.time),
+    date: formatDate(ctx, ctx.scene.state.time),
   };
   const requestDocs = await requestCollection
     .where("requester", "==", ctx.chat.id)
@@ -64,7 +60,7 @@ storeRequestScene.enter(async (ctx) => {
   } else {
     locationDoc.ref.update("popularity", Firestore.FieldValue.increment(1));
   }
-  ctx.reply(ctx.i18n.t("store.confirmation", request));
+  await ctx.reply(ctx.i18n.t("store.confirmation", request));
   if (process.env.NODE_ENV !== "production")
     ctx.reply(ctx.i18n.t("general.testmode"), { parse_mode: "HTML" });
   await requestCollection.add({
@@ -77,6 +73,4 @@ storeRequestScene.enter(async (ctx) => {
     language: ctx.i18n.languageCode,
   });
   match(ctx, request.location, request.rawTime);
-});
-
-module.exports = storeRequestScene;
+};

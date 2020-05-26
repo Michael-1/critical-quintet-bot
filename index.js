@@ -6,7 +6,6 @@ const Stage = require("telegraf/stage");
 
 const locationScene = require("./src/location");
 const timeScene = require("./src/time");
-const storeRequestScene = require("./src/storeRequest");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.use(session());
@@ -37,7 +36,7 @@ const i18n = new TelegrafI18n({
 });
 bot.use(i18n.middleware());
 
-const stage = new Stage([locationScene, timeScene, storeRequestScene]);
+const stage = new Stage([locationScene, timeScene]);
 bot.use(stage.middleware());
 bot.command("start", (ctx) => {
   if (
