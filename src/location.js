@@ -1,4 +1,3 @@
-const Stage = require("telegraf/stage");
 const Scene = require("telegraf/scenes/base");
 const Markup = require("telegraf/markup");
 const stringSimilarity = require("string-similarity");
@@ -7,7 +6,10 @@ const { locationCollection } = require("./db");
 
 const locationScene = new Scene("location");
 
-locationScene.command("cancel", Stage.leave());
+locationScene.command("cancel", (ctx) => {
+  ctx.reply(ctx.i18n.t("general.cancel"));
+  ctx.scene.leave();
+});
 
 locationScene.enter((ctx) => {
   locationCollection

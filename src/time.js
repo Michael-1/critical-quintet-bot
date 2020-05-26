@@ -1,4 +1,3 @@
-const Stage = require("telegraf/stage");
 const Scene = require("telegraf/scenes/base");
 const Markup = require("telegraf/markup");
 const chrono = require("chrono-node");
@@ -20,7 +19,10 @@ timeScene.enter(async (ctx) => {
   );
 });
 
-timeScene.command("cancel", Stage.leave());
+timeScene.command("cancel", (ctx) => {
+  ctx.reply(ctx.i18n.t("general.cancel"));
+  ctx.scene.leave();
+});
 
 // Custom parser that can parse dates like '29.5.' or '29.05.'
 const numParser = new chrono.Parser();

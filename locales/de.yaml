@@ -1,6 +1,7 @@
 general:
   hello: Hallo ${username}, schön bist du hier.
-  help: Sende /start, um andere kritische Einzelteile zu finden
+  help: Sende /start, um andere kritische Einzelteile zu finden.
+  cancel: Du kannst neu starten, indem Du /start sendest.
   testmode: Du befindest Dich in der Test-Version des Bots. Wenn Du Dich wirklich treffen möchtest, dann nutze den richtigen <a href="https://t.me/CriticalQuintetBot">Critical Quintet Bot</a>.
   devmode: Dieser Bot ist nur für Testzwecke. Nutze stattdessen den richtigen <a href="https://t.me/CriticalQuintetBot">Critical Quintet Bot</a>.
 location:
