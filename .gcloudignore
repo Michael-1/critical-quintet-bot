@@ -15,3 +15,9 @@
 
 # Node.js dependencies:
 node_modules/
+
+env
+.env
+.eslintrc.js
+.prettierc
+icon.svg
