@@ -48,7 +48,7 @@ bot.command("start", (ctx) => {
     ctx.reply(ctx.i18n.t("general.devmode"), { parse_mode: "HTML" });
     return;
   }
-  if (!ctx.message.message_id === 0) {
+  if (ctx.message.message_id === 0) {
     ctx.reply(ctx.i18n.t("general.hello", { username: ctx.from.first_name }));
   }
   ctx.scene.enter("location");
