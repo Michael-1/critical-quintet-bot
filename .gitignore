@@ -1,7 +1,4 @@
-*
-!.gitignore
-!.prettierrc
-!*.js
-!*.json
-!src
-!locale
+/.env
+/env
+node_modules
+.vscode

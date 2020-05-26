@@ -1,0 +1,26 @@
+general:
+  hello: Hallo ${username}, schön bist du hier.
+  help: Sende /start, um andere kritische Einzelteile zu finden
+  testmode: Du befindest Dich in der Test-Version des Bots. Wenn Du Dich wirklich treffen möchtest, dann nutze den richtigen <a href="https://t.me/CriticalQuintetBot">Critical Quintet Bot</a>.
+  devmode: Dieser Bot ist nur für Testzwecke. Nutze stattdessen den richtigen <a href="https://t.me/CriticalQuintetBot">Critical Quintet Bot</a>.
+location:
+  initial: Wo möchtest du dich mit anderen kritischen Einzelteilen treffen?
+  choose: Wähle unten oder gib einen neuen Ort ein.
+  similar: Den Ort kenne ich noch nicht. Aber ich habe ähnlich klingende Orte in meinem Gedächtnis gefunden. Meinst Du einen von denen?
+  confirmNew: Ich meine wirklich «${name}»
+time:
+  initial: Und wann möchtest du dich in ${location} mit anderen kritischen Einzelteilen treffen?
+  choose: Wähle unten oder gib einen neuen Zeitpunkt ein.
+  not_understood: Das habe ich nicht verstanden. Gib den Zeitpunkt in einem anderen Format ein. Zum Abbrechen sende /cancel.
+  missing_time: Um welche Zeit?
+  in_past: Der Zeitpunkt muss mindestens 15 Minuten in der Zukunft liegen.
+  rounded: Okay, ich habe die Zeit auf ${roundedTime} gerundet.
+  conclude: Bestätige den Zeitpunkt durch Wahl in der Liste unten. Oder schicke mir einen neuen Zeitpunkt.
+store:
+  match: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location} . Habe etwas Geduld.
+  within2hours: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location}. Möchtest Du stattdessen um ${newTime} suchen?
+  differentLocation: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location}. Möchtest Du stattdessen in ${newLocation} suchen?
+  confirmation: Okay, ich werde dir schreiben sobald ich vier andere kritische Einzelteile kenne, die sich am ${date} um ${time} in ${location} treffen möchten.
+match:
+  success: "Ich habe dein kritisches Quintett gefunden! Du fährst am ${date} in ${location} um ${time} mit:"
+  follow_up: Erstelle am besten gleich eine Gruppe für euch fünf und schlage einen dezentralen Treffpunkt vor. Gute Fahrt!
