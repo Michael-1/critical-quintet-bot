@@ -40,12 +40,13 @@ bot.use(i18n.middleware());
 const stage = new Stage([locationScene, timeScene, storeRequestScene]);
 bot.use(stage.middleware());
 bot.command("start", (ctx) => {
-  if (process.env.NODE_ENV === "development" && ctx.chat.id !== 770803307) {
+  if (
+    process.env.NODE_ENV === "development" &&
+    ctx.chat.id !== 770803307 &&
+    ctx.chat.id !== 250884021
+  ) {
     ctx.reply(ctx.i18n.t("general.devmode"), { parse_mode: "HTML" });
     return;
-  }
-  if (process.env.NODE_ENV === "development" && ctx.chat.id !== 770803307) {
-    ctx.reply(ctx.i18n.t("general.testmode"), { parse_mode: "HTML" });
   }
   if (!ctx.message.message_id === 0) {
     ctx.reply(ctx.i18n.t("general.hello", { username: ctx.from.first_name }));
