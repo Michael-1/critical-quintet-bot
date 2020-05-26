@@ -6,9 +6,12 @@ const database = new Firestore({
 
 database.settings({ ignoreUndefinedProperties: true });
 
+const environmentPostfix =
+  process.env.NODE_ENV !== "production" ? "-" + process.env.NODE_ENV : "";
+
 module.exports = {
   Firestore,
   database,
-  locationCollection: database.collection("Location"),
-  requestCollection: database.collection("Request"),
+  locationCollection: database.collection("Location" + environmentPostfix),
+  requestCollection: database.collection("Request" + environmentPostfix),
 };

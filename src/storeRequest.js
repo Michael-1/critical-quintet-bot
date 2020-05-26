@@ -65,6 +65,8 @@ storeRequestScene.enter(async (ctx) => {
     locationDoc.ref.update("popularity", Firestore.FieldValue.increment(1));
   }
   ctx.reply(ctx.i18n.t("store.confirmation", request));
+  if (process.env.NODE_ENV !== "production")
+    ctx.reply(ctx.i18n.t("general.testmode"), { parse_mode: "HTML" });
   await requestCollection.add({
     requester: ctx.chat.id,
     requesterName: ctx.chat.first_name,

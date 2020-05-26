@@ -2,9 +2,12 @@
   "name": "critical-quintet-bot",
   "version": "1.0.0",
   "description": "Telegram bot to find four other critical individuals for a Corona-compatible bike ride",
-  "main": "scr/bot.js",
+  "main": "index.js",
   "scripts": {
-    "debug": "nodemon --inspect src/bot.js"
+    "start": "node index.js",
+    "debug": "nodemon --inspect index.js",
+    "deploy-prod": "gcloud functions deploy botHook --project=critical-quintet --region=europe-west3 --env-vars-file env/prod.yaml --runtime nodejs10 --trigger-http",
+    "deploy-test": "gcloud functions deploy botHookTest --project=critical-quintet --region=europe-west3 --env-vars-file env/test.yaml --runtime nodejs10 --trigger-http"
   },
   "repository": {
     "type": "git",

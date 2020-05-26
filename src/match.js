@@ -50,6 +50,15 @@ const match = (ctx, location, time) => {
             .catch((e) => {
               console.error(e);
             });
+          if (process.env.NODE_ENV !== "production") {
+            telegram
+              .sendMessage(match.requester, ctx.i18n.t("general.testmode"), {
+                parse_mode: "HTML",
+              })
+              .catch((e) => {
+                console.error(e);
+              });
+          }
         }
       })
   );

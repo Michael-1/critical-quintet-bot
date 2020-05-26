@@ -11,6 +11,26 @@ const storeRequestScene = require("./storeRequest");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.use(session());
 
+const PROJECT_ID = "critical-quintet";
+const REGION = "europe-west6";
+if (process.env.NODE_ENV === "production") {
+  bot.telegram.setWebhook(
+    `https://${REGION}-${PROJECT_ID}.cloudfunctions.net/${process.env.FUNCTION_TARGET}`
+  );
+  exports.botHook = (req, res) => {
+    bot.handleUpdate(req.body, res);
+  };
+} else if (process.env.NODE_ENV === "test") {
+  bot.telegram.setWebhook(
+    `https://${REGION}-${PROJECT_ID}.cloudfunctions.net/${process.env.FUNCTION_TARGET}`
+  );
+  exports.testBotHook = (req, res) => {
+    bot.handleUpdate(req.body, res);
+  };
+} else {
+  bot.launch();
+}
+
 const i18n = new TelegrafI18n({
   defaultLanguage: "de",
   directory: "locales",
