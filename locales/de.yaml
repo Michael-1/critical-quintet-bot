@@ -7,6 +7,7 @@ general:
 location:
   initial: Wo möchtest du dich mit anderen kritischen Einzelteilen treffen?
   choose: Wähle unten oder gib einen neuen Ort ein.
+  no_location: Gib den Namen der Ortschaft ein. Zum Abbrechen sende /cancel.
   similar: Den Ort kenne ich noch nicht. Aber ich habe ähnlich klingende Orte in meinem Gedächtnis gefunden. Meinst Du einen von denen?
   confirmNew: Ich meine wirklich «${name}»
 time:

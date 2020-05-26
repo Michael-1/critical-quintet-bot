@@ -34,6 +34,10 @@ locationScene.enter((ctx) => {
 
 locationScene.on("text", async (ctx) => {
   let location = ctx.message.text.trim();
+  if (!RegExp(/^\p{L}/, "u").test(location)) {
+    ctx.reply(ctx.i18n.t("location.no_location"));
+    return;
+  }
   if (location === location.toUpperCase()) {
     location = location.toLowerCase();
   }
