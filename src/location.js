@@ -86,9 +86,15 @@ locationScene.on("text", async (ctx) => {
   concludeLocationSelection(ctx, location);
 });
 
-locationScene.on("callback_query", (ctx) =>
-  concludeLocationSelection(ctx, ctx.update.callback_query.data)
-);
+locationScene.on("callback_query", (ctx) => {
+  const location = ctx.update.callback_query.data;
+  if (!RegExp(/^\p{L}/, "u").test(location)) {
+    ctx.telegram.answerCbQuery(ctx.update.callback_query.id);
+    return;
+  }
+  concludeLocationSelection(ctx, location);
+  ctx.telegram.answerCbQuery(ctx.update.callback_query.id);
+});
 
 const concludeLocationSelection = (ctx, location) => {
   ctx.scene.state.location = location;

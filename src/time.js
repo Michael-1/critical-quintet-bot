@@ -126,9 +126,15 @@ const getChoices = async (ctx, newTime) => {
 };
 
 timeScene.on("callback_query", async (ctx) => {
-  ctx.scene.state.time = parseInt(ctx.update.callback_query.data);
-  await storeRequest(ctx);
+  const time = parseInt(ctx.update.callback_query.data);
+  if (!time) {
+    ctx.telegram.answerCbQuery(ctx.update.callback_query.id);
+    return;
+  }
+  ctx.scene.state.time = time;
   ctx.scene.leave();
+  storeRequest(ctx);
+  ctx.telegram.answerCbQuery(ctx.update.callback_query.id);
 });
 
 const timeButton = (ctx, time) => [
