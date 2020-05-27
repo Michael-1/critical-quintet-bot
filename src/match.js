@@ -1,6 +1,3 @@
-const Telegram = require("telegraf/telegram");
-const telegram = new Telegram(process.env.BOT_TOKEN);
-
 const { database, requestCollection } = require("./db");
 const { formatTimeOfDay, formatDate } = require("./helper");
 
@@ -45,13 +42,13 @@ const match = (ctx, location, time) => {
           }
           message += ctx.i18n.t("match.follow_up");
           message += "\n🚴🚴‍♀️🚴🏿‍♂️🚴🏽🚴🏻‍♀️";
-          telegram
+          ctx.telegram
             .sendMessage(match.requester, message, { parse_mode: "HTML" })
             .catch((e) => {
               console.error(e);
             });
           if (process.env.NODE_ENV !== "production") {
-            telegram
+            ctx.telegram
               .sendMessage(match.requester, ctx.i18n.t("general.testmode"), {
                 parse_mode: "HTML",
               })
