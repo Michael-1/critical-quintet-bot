@@ -6,12 +6,13 @@ const { locationCollection } = require("./db");
 
 const locationScene = new Scene("location");
 
-locationScene.command("cancel", (ctx) => {
-  ctx.reply(ctx.i18n.t("general.cancel"));
+locationScene.command("cancel", async (ctx) => {
+  await ctx.reply(ctx.i18n.t("general.cancel"));
   ctx.scene.leave();
 });
 
 locationScene.enter((ctx) => {
+  ctx.replyWithChatAction("typing");
   locationCollection
     .orderBy("popularity", "desc")
     .limit(3)
@@ -33,6 +34,7 @@ locationScene.enter((ctx) => {
 });
 
 locationScene.on("text", async (ctx) => {
+  ctx.replyWithChatAction("typing");
   let location = ctx.message.text.trim();
   if (!RegExp(/^\p{L}/, "u").test(location)) {
     ctx.reply(ctx.i18n.t("location.no_location"));
@@ -76,7 +78,7 @@ locationScene.on("text", async (ctx) => {
       choices.push(
         locationButton(ctx.i18n.t("location.confirmNew", { name: location }))
       );
-      ctx.reply(
+      await ctx.reply(
         ctx.i18n.t("location.similar"),
         Markup.inlineKeyboard(choices).extra()
       );
@@ -97,9 +99,7 @@ locationScene.on("callback_query", (ctx) => {
 });
 
 const concludeLocationSelection = (ctx, location) => {
-  ctx.scene.state.location = location;
-  ctx.scene.enter("time", ctx.scene.state);
-  ctx.scene.leave();
+  ctx.scene.enter("time", { location });
 };
 
 const locationButton = (label) => [Markup.callbackButton(label, label)];

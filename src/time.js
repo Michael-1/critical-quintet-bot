@@ -10,6 +10,7 @@ const MINUTES_15 = 15 * 60 * 1000;
 
 const timeScene = new Scene("time");
 timeScene.enter(async (ctx) => {
+  ctx.replyWithChatAction("typing");
   const choices = await getChoices(ctx);
   ctx.reply(
     ctx.i18n.t("time.initial", { location: ctx.scene.state.location }) +
@@ -20,8 +21,8 @@ timeScene.enter(async (ctx) => {
   );
 });
 
-timeScene.command("cancel", (ctx) => {
-  ctx.reply(ctx.i18n.t("general.cancel"));
+timeScene.command("cancel", async (ctx) => {
+  await ctx.reply(ctx.i18n.t("general.cancel"));
   ctx.scene.leave();
 });
 
@@ -62,8 +63,8 @@ timeScene.on("text", async (ctx) => {
   let parsedTime = parsedTimes[0];
   let time = parsedTime.date();
   if (!parsedTime.start.knownValues.hasOwnProperty("hour")) {
-    ctx.reply(ctx.i18n.t("time.missing_time"));
     ctx.scene.state.lastParsedDate = time;
+    ctx.reply(ctx.i18n.t("time.missing_time"));
     return;
   }
   if (
@@ -71,7 +72,7 @@ timeScene.on("text", async (ctx) => {
     !parsedTime.start.knownValues.hasOwnProperty("weekday") &&
     ctx.scene.state.lastParsedDate
   ) {
-    const previousDate = ctx.scene.state.lastParsedDate;
+    const previousDate = ctx.scene.state.lastParsedDate.toDate();
     time.setFullYear(previousDate.getFullYear());
     time.setMonth(previousDate.getMonth());
     time.setDate(previousDate.getDate());
@@ -89,12 +90,13 @@ timeScene.on("text", async (ctx) => {
     time.setMinutes(roundedMinutes);
     time.setSeconds(0);
     time.setMilliseconds(0);
-    ctx.reply(
+    await ctx.reply(
       ctx.i18n.t("time.rounded", {
         roundedTime: formatTimeOfDay(ctx, time),
       })
     );
   }
+  ctx.replyWithChatAction("typing");
   const choices = await getChoices(ctx, time.getTime());
   ctx.reply(ctx.i18n.t("time.conclude"), choices);
 });
