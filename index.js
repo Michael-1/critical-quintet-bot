@@ -55,5 +55,9 @@ bot.command("start", (ctx) => {
 bot.on("message", (ctx) => {
   ctx.reply(ctx.i18n.t("general.help"));
 });
+bot.on("callback_query", async (ctx) => {
+  ctx.telegram.answerCbQuery(ctx.update.callback_query.id);
+  ctx.reply(ctx.i18n.t("general.help"));
+});
 
 bot.help((ctx) => ctx.reply(ctx.i18n.t("general.help")));
