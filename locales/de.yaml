@@ -19,7 +19,7 @@ time:
   rounded: Okay, ich habe die Zeit auf ${roundedTime} gerundet.
   conclude: Bestätige den Zeitpunkt durch Wahl in der Liste unten. Oder schicke mir einen neuen Zeitpunkt.
 store:
-  match: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location} . Habe etwas Geduld.
+  match: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location}. Habe etwas Geduld.
   within2hours: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location}. Möchtest Du stattdessen um ${newTime} suchen?
   differentLocation: Du bist bereits auf der Suche nach anderen kritischen Einzelteilen für am ${date} um ${time} in ${location}. Möchtest Du stattdessen in ${newLocation} suchen?
   confirmation: Okay, ich werde dir schreiben sobald ich vier andere kritische Einzelteile kenne, die sich am ${date} um ${time} in ${location} treffen möchten.
