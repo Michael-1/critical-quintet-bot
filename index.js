@@ -1,14 +1,15 @@
 require("dotenv").config();
 const Telegraf = require("telegraf");
 const TelegrafI18n = require("telegraf-i18n");
-const session = require("telegraf/session");
+const firestoreSession = require("telegraf-session-firestore");
 const Stage = require("telegraf/stage");
 
 const locationScene = require("./src/location");
 const timeScene = require("./src/time");
+const { sessionCollection } = require("./src/db");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-bot.use(session());
+bot.use(firestoreSession.default(sessionCollection));
 
 const PROJECT_ID = "critical-quintet";
 const REGION = "europe-west3";

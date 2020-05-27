@@ -26,7 +26,8 @@
     "string-similarity": "^4.0.1",
     "telegraf": "^3.38.0",
     "telegraf-i18n": "^6.6.0",
-    "telegraf-inline-menu": "^4.0.1"
+    "telegraf-inline-menu": "^4.0.1",
+    "telegraf-session-firestore": "^2.2.3"
   },
   "prettier": {},
   "devDependencies": {

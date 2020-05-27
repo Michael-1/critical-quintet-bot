@@ -14,4 +14,5 @@ module.exports = {
   database,
   locationCollection: database.collection("Location" + environmentPostfix),
   requestCollection: database.collection("Request" + environmentPostfix),
+  sessionCollection: database.collection("Session" + environmentPostfix),
 };
